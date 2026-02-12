@@ -3,7 +3,7 @@
 
 ![](https://img.shields.io/github/v/release/alireza0/x-ui.svg)
 ![](https://img.shields.io/docker/pulls/alireza7/x-ui.svg)
-[![Go Report Card](https://goreportcard.com/badge/github.com/alireza0/x-ui)](https://goreportcard.com/report/github.com/alireza0/x-ui)
+[![Go Report Card](https://goreportcard.com/badge/github.com/hibert125-coder/x-ui)](https://goreportcard.com/report/github.com/hibert125-coder/x-ui)
 [![Downloads](https://img.shields.io/github/downloads/alireza0/x-ui/total.svg)](https://img.shields.io/github/downloads/alireza0/x-ui/total.svg)
 [![License](https://img.shields.io/badge/license-GPL%20V3-blue.svg?longCache=true)](https://www.gnu.org/licenses/gpl-3.0.en.html)
 
@@ -66,7 +66,7 @@ case "${ARCH}" in
   *) XUI_ARCH="amd64" ;;
 esac
 
-wget https://github.com/alireza0/x-ui/releases/latest/download/x-ui-linux-${XUI_ARCH}.tar.gz
+wget https://github.com/hibert125-coder/x-ui/releases/latest/download/x-ui-linux-${XUI_ARCH}.tar.gz
 ```
 
 2. Once the compressed package is downloaded, execute the following commands to install or upgrade x-ui:
@@ -110,7 +110,7 @@ curl -fsSL https://get.docker.com | sh
 **Step 2:** Clone the Project Repository:
 
    ```sh
-   git clone https://github.com/alireza0/x-ui.git
+   git clone https://github.com/hibert125-coder/x-ui.git
    cd x-ui
    ```
 

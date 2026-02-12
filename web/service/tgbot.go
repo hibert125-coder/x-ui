@@ -9,13 +9,13 @@ import (
 	"strings"
 	"time"
 
-	"github.com/alireza0/x-ui/config"
-	"github.com/alireza0/x-ui/database"
-	"github.com/alireza0/x-ui/database/model"
-	"github.com/alireza0/x-ui/logger"
-	"github.com/alireza0/x-ui/util/common"
-	"github.com/alireza0/x-ui/web/locale"
-	"github.com/alireza0/x-ui/xray"
+	"github.com/hibert125-coder/x-ui/config"
+	"github.com/hibert125-coder/x-ui/database"
+	"github.com/hibert125-coder/x-ui/database/model"
+	"github.com/hibert125-coder/x-ui/logger"
+	"github.com/hibert125-coder/x-ui/util/common"
+	"github.com/hibert125-coder/x-ui/web/locale"
+	"github.com/hibert125-coder/x-ui/xray"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 )

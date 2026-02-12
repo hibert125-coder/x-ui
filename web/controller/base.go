@@ -3,9 +3,9 @@ package controller
 import (
 	"net/http"
 
-	"github.com/alireza0/x-ui/logger"
-	"github.com/alireza0/x-ui/web/locale"
-	"github.com/alireza0/x-ui/web/session"
+	"github.com/hibert125-coder/x-ui/logger"
+	"github.com/hibert125-coder/x-ui/web/locale"
+	"github.com/hibert125-coder/x-ui/web/session"
 
 	"github.com/gin-gonic/gin"
 )

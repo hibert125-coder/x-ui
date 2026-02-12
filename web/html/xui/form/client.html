@@ -121,5 +121,18 @@
         </template>
         <a-input-number v-model.number="client.reset" :min="0"></a-input-number>
 </a-form-item>
+<a-form-item label="Max Connections">
+    <a-tooltip>
+        <template slot="title">
+            0 = No Limit
+        </template>
+        <a-input-number
+            v-model.number="client.maxConnections"
+            :min="0"
+            style="width: 100%;">
+        </a-input-number>
+    </a-tooltip>
+</a-form-item>
+
 </a-form>
 {{end}}

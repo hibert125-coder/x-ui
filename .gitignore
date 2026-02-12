@@ -16,3 +16,6 @@ release/
 /x-ui
 .DS_Store
 /dev/
+*.exe
+*.db
+*.db-journal

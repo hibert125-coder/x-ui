@@ -7,8 +7,8 @@ import (
 	"regexp"
 	"time"
 
-	"github.com/alireza0/x-ui/logger"
-	"github.com/alireza0/x-ui/util/common"
+	"github.com/hibert125-coder/x-ui/logger"
+	"github.com/hibert125-coder/x-ui/util/common"
 
 	"github.com/xtls/xray-core/app/proxyman/command"
 	statsService "github.com/xtls/xray-core/app/stats/command"
@@ -257,4 +257,28 @@ func (x *XrayAPI) GetTraffic(reset bool) ([]*Traffic, []*ClientTraffic, error) {
 	}
 
 	return traffics, clientTraffics, nil
+}
+
+func (x *XrayAPI) GetOnlineUsers() ([]string, error) {
+
+	if x.grpcClient == nil {
+		return nil, fmt.Errorf("xray api not initialized")
+	}
+
+	traffics, clientTraffics, err := x.GetTraffic(false)
+	if err != nil {
+		return nil, err
+	}
+
+	_ = traffics // ما با inbound کاری نداریم
+
+	var users []string
+
+	for _, ct := range clientTraffics {
+		if ct.Up > 0 || ct.Down > 0 {
+			users = append(users, ct.Email)
+		}
+	}
+
+	return users, nil
 }

@@ -8,8 +8,8 @@ import (
 	"os"
 	"time"
 
-	"github.com/alireza0/x-ui/logger"
-	"github.com/alireza0/x-ui/util/common"
+	"github.com/hibert125-coder/x-ui/logger"
+	"github.com/hibert125-coder/x-ui/util/common"
 )
 
 type WarpService struct {

@@ -3,8 +3,8 @@ package model
 import (
 	"fmt"
 
-	"github.com/alireza0/x-ui/util/json_util"
-	"github.com/alireza0/x-ui/xray"
+	"github.com/hibert125-coder/x-ui/util/json_util"
+	"github.com/hibert125-coder/x-ui/xray"
 )
 
 type Protocol string
@@ -68,16 +68,17 @@ type Setting struct {
 }
 
 type Client struct {
-	ID         string `json:"id"`
-	Password   string `json:"password"`
-	Flow       string `json:"flow"`
-	Email      string `json:"email"`
-	TotalGB    int64  `json:"totalGB" form:"totalGB"`
-	ExpiryTime int64  `json:"expiryTime" form:"expiryTime"`
-	Enable     bool   `json:"enable" form:"enable"`
-	TgID       string `json:"tgId" form:"tgId"`
-	SubID      string `json:"subId" form:"subId"`
-	Reset      int    `json:"reset" form:"reset"`
+	ID             string `json:"id"`
+	Password       string `json:"password"`
+	Flow           string `json:"flow"`
+	Email          string `json:"email"`
+	TotalGB        int64  `json:"totalGB" form:"totalGB"`
+	ExpiryTime     int64  `json:"expiryTime" form:"expiryTime"`
+	Enable         bool   `json:"enable" form:"enable"`
+	TgID           string `json:"tgId" form:"tgId"`
+	SubID          string `json:"subId" form:"subId"`
+	Reset          int    `json:"reset" form:"reset"`
+	MaxConnections int    `json:"maxConnections" form:"maxConnections"`
 }
 
 type VLESSSettings struct {

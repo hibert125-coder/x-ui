@@ -12,9 +12,9 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/alireza0/x-ui/config"
-	"github.com/alireza0/x-ui/logger"
-	"github.com/alireza0/x-ui/util/common"
+	"github.com/hibert125-coder/x-ui/config"
+	"github.com/hibert125-coder/x-ui/logger"
+	"github.com/hibert125-coder/x-ui/util/common"
 )
 
 func GetBinaryName() string {
@@ -58,6 +58,8 @@ type process struct {
 	apiPort int
 
 	onlineClients []string
+
+	api *XrayAPI
 
 	config    *Config
 	logWriter *LogWriter
@@ -110,9 +112,53 @@ func (p *Process) GetConfig() *Config {
 func (p *Process) GetOnlineClients() []string {
 	return p.onlineClients
 }
-
 func (p *Process) SetOnlineClients(users []string) {
-	p.onlineClients = users
+	if p.config == nil {
+		p.onlineClients = users
+		return
+	}
+
+	var filtered []string
+	counter := make(map[string]int)
+
+	for _, email := range users {
+
+		counter[email]++
+
+		allowed := true
+
+		for _, inbound := range p.config.InboundConfigs {
+
+			var settings struct {
+				Clients []struct {
+					Email          string `json:"email"`
+					MaxConnections int    `json:"maxConnections"`
+				} `json:"clients"`
+			}
+
+			if err := json.Unmarshal(inbound.Settings, &settings); err != nil {
+				continue
+			}
+
+			for _, client := range settings.Clients {
+				if client.Email == email {
+
+					if client.MaxConnections > 0 && counter[email] > client.MaxConnections {
+						logger.Warning("Reject extra connection:", email)
+						allowed = false
+					}
+
+					break
+				}
+			}
+		}
+
+		if allowed {
+			filtered = append(filtered, email)
+		}
+	}
+
+	p.onlineClients = filtered
 }
 
 func (p *Process) GetUptime() uint64 {
@@ -164,7 +210,6 @@ func (p *process) Start() (err error) {
 	if err != nil {
 		return common.NewErrorf("Write the configuration file failed: %v", err)
 	}
-
 	cmd := exec.Command(GetBinaryPath(), "-c", configPath)
 	p.cmd = cmd
 
@@ -182,6 +227,15 @@ func (p *process) Start() (err error) {
 	p.refreshVersion()
 	p.refreshAPIPort()
 
+	api := &XrayAPI{}
+	if err := api.Init(p.apiPort); err == nil {
+		p.api = api
+		logger.Info("Xray API connected")
+	} else {
+		logger.Warning("Failed to connect Xray API:", err)
+	}
+	p.startLimiter()
+
 	return nil
 }
 
@@ -195,6 +249,61 @@ func (p *process) Stop() error {
 	} else {
 		return p.cmd.Process.Signal(syscall.SIGTERM)
 	}
+}
+func (p *process) startLimiter() {
+	go func() {
+		for {
+			time.Sleep(5 * time.Second)
+			logger.Info("Limiter running...")
+
+			if p.api == nil || p.config == nil {
+				continue
+			}
+
+			onlineUsers, err := p.api.GetOnlineUsers()
+			if err != nil {
+				continue
+			}
+
+			counter := make(map[string]int)
+
+			for _, email := range onlineUsers {
+				counter[email]++
+			}
+
+			for _, inbound := range p.config.InboundConfigs {
+
+				var settings struct {
+					Clients []struct {
+						Email          string `json:"email"`
+						MaxConnections int    `json:"maxConnections"`
+					} `json:"clients"`
+				}
+
+				if err := json.Unmarshal(inbound.Settings, &settings); err != nil {
+					continue
+				}
+
+				for _, client := range settings.Clients {
+
+					if client.MaxConnections == 0 {
+						continue
+					}
+
+					if counter[client.Email] > client.MaxConnections {
+
+						logger.Warning("Kicking extra connection:", client.Email)
+
+						_ = p.api.RemoveUser(inbound.Tag, client.Email)
+
+						_ = p.api.AddUser(string(inbound.Protocol), inbound.Tag, map[string]interface{}{
+							"email": client.Email,
+						})
+					}
+				}
+			}
+		}
+	}()
 }
 
 func writeCrashReport(m []byte) error {

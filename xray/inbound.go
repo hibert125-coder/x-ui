@@ -3,7 +3,7 @@ package xray
 import (
 	"bytes"
 
-	"github.com/alireza0/x-ui/util/json_util"
+	"github.com/hibert125-coder/x-ui/util/json_util"
 )
 
 type InboundConfig struct {

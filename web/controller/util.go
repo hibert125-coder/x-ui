@@ -5,9 +5,9 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/alireza0/x-ui/config"
-	"github.com/alireza0/x-ui/logger"
-	"github.com/alireza0/x-ui/web/entity"
+	"github.com/hibert125-coder/x-ui/config"
+	"github.com/hibert125-coder/x-ui/logger"
+	"github.com/hibert125-coder/x-ui/web/entity"
 
 	"github.com/gin-gonic/gin"
 )
