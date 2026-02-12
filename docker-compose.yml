@@ -2,7 +2,7 @@
 
 services:
   xui:
-    image: alireza7/x-ui
+    image: hibert126-coder7/x-ui
     container_name: x-ui
     hostname: yourhostname
     volumes:

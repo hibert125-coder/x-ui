@@ -1,19 +1,19 @@
 # X-UI
 **An Advanced Web Panel • Built on Xray Core**
 
-![](https://img.shields.io/github/v/release/alireza0/x-ui.svg)
-![](https://img.shields.io/docker/pulls/alireza7/x-ui.svg)
+![](https://img.shields.io/github/v/release/hibert126-coder0/x-ui.svg)
+![](https://img.shields.io/docker/pulls/hibert126-coder7/x-ui.svg)
 [![Go Report Card](https://goreportcard.com/badge/github.com/hibert125-coder/x-ui)](https://goreportcard.com/report/github.com/hibert125-coder/x-ui)
-[![Downloads](https://img.shields.io/github/downloads/alireza0/x-ui/total.svg)](https://img.shields.io/github/downloads/alireza0/x-ui/total.svg)
+[![Downloads](https://img.shields.io/github/downloads/hibert126-coder0/x-ui/total.svg)](https://img.shields.io/github/downloads/hibert126-coder0/x-ui/total.svg)
 [![License](https://img.shields.io/badge/license-GPL%20V3-blue.svg?longCache=true)](https://www.gnu.org/licenses/gpl-3.0.en.html)
 
 > **Disclaimer:** This project is only for personal learning and communication, please do not use it for illegal purposes, please do not use it in a production environment
 
 **If you think this project is helpful to you, you may wish to give a**:star2:
 
-[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/alireza7)
+[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/hibert126-coder7)
 
-<a href="https://nowpayments.io/donation/alireza7" target="_blank" rel="noreferrer noopener">
+<a href="https://nowpayments.io/donation/hibert126-coder7" target="_blank" rel="noreferrer noopener">
    <img src="https://nowpayments.io/images/embeds/donation-button-black.svg" alt="Crypto donation button by NOWPayments">
 </a>
 
@@ -36,7 +36,7 @@
 ## Install & Upgrade to Latest Version
 
 ```sh
-bash <(curl -Ls https://raw.githubusercontent.com/alireza0/x-ui/master/install.sh)
+bash <(curl -Ls https://raw.githubusercontent.com/hibert126-coder0/x-ui/master/install.sh)
 ```
 
 ## Install Legacy Version
@@ -44,7 +44,7 @@ bash <(curl -Ls https://raw.githubusercontent.com/alireza0/x-ui/master/install.s
 **Step 1:** To install an old version, use following installation command. e.g., version `1.8.0`:
 
 ```sh
-VERSION=1.8.0 && bash <(curl -Ls "https://raw.githubusercontent.com/alireza0/x-ui/$VERSION/install.sh") $VERSION
+VERSION=1.8.0 && bash <(curl -Ls "https://raw.githubusercontent.com/hibert126-coder0/x-ui/$VERSION/install.sh") $VERSION
 ```
 
 ## Manual Install & Upgrade
@@ -130,7 +130,7 @@ docker run -itd \
     -v $PWD/db/:/etc/x-ui/ \
     -v $PWD/cert/:/root/cert/ \
     --name x-ui --restart=unless-stopped \
-    alireza7/x-ui:latest
+    hibert126-coder7/x-ui:latest
 ```
 
 update to latest version
@@ -411,4 +411,4 @@ Save your changes and restart the Xray Service
 
 ## Stargazers over Time
 
-[![Stargazers over time](https://starchart.cc/alireza0/x-ui.svg)](https://starchart.cc/alireza0/x-ui)
+[![Stargazers over time](https://starchart.cc/hibert126-coder0/x-ui.svg)](https://starchart.cc/hibert126-coder0/x-ui)
