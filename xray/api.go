@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"regexp"
+	"strings"
 	"time"
 
 	"github.com/hibert125-coder/x-ui/logger"
@@ -259,24 +260,34 @@ func (x *XrayAPI) GetTraffic(reset bool) ([]*Traffic, []*ClientTraffic, error) {
 	return traffics, clientTraffics, nil
 }
 
-func (x *XrayAPI) GetOnlineUsers() ([]string, error) {
+func (a *XrayAPI) GetOnlineUsers() ([]string, error) {
 
-	if x.grpcClient == nil {
-		return nil, fmt.Errorf("xray api not initialized")
+	if !a.isConnected || a.StatsServiceClient == nil {
+		return nil, fmt.Errorf("stats service not connected")
 	}
 
-	traffics, clientTraffics, err := x.GetTraffic(false)
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	defer cancel()
+
+	resp, err := (*a.StatsServiceClient).QueryStats(ctx, &statsService.QueryStatsRequest{
+		Pattern: "user>>>",
+		Reset_:  false,
+	})
 	if err != nil {
 		return nil, err
 	}
 
-	_ = traffics // ما با inbound کاری نداریم
-
 	var users []string
 
-	for _, ct := range clientTraffics {
-		if ct.Up > 0 || ct.Down > 0 {
-			users = append(users, ct.Email)
+	for _, stat := range resp.Stat {
+		name := stat.Name
+
+		if strings.Contains(name, ">>>traffic>>>") {
+
+			parts := strings.Split(name, ">>>")
+			if len(parts) >= 2 {
+				users = append(users, parts[1])
+			}
 		}
 	}
 

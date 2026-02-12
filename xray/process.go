@@ -231,12 +231,13 @@ func (p *process) Start() (err error) {
 	if err := api.Init(p.apiPort); err == nil {
 		p.api = api
 		logger.Info("Xray API connected")
+		p.startLimiter()
 	} else {
 		logger.Warning("Failed to connect Xray API:", err)
 	}
-	p.startLimiter()
 
 	return nil
+
 }
 
 func (p *process) Stop() error {
@@ -254,7 +255,6 @@ func (p *process) startLimiter() {
 	go func() {
 		for {
 			time.Sleep(5 * time.Second)
-			logger.Info("Limiter running...")
 
 			if p.api == nil || p.config == nil {
 				continue
@@ -262,6 +262,7 @@ func (p *process) startLimiter() {
 
 			onlineUsers, err := p.api.GetOnlineUsers()
 			if err != nil {
+				logger.Warning("Limiter: cannot get online users")
 				continue
 			}
 
@@ -295,10 +296,6 @@ func (p *process) startLimiter() {
 						logger.Warning("Kicking extra connection:", client.Email)
 
 						_ = p.api.RemoveUser(inbound.Tag, client.Email)
-
-						_ = p.api.AddUser(string(inbound.Protocol), inbound.Tag, map[string]interface{}{
-							"email": client.Email,
-						})
 					}
 				}
 			}
